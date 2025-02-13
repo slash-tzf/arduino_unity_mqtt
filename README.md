@@ -11,6 +11,7 @@ char ssid[] = "wifi_name";        // Your WiFi network name (SSID)
 char pass[] = "wifi_password";    // Your WiFi password
 ```
 ### MQTT Setup
+Modify the following variables with your Mqtt credentials:
 ```cpp
 char mqtt_user[] = "user";        //Mqtt Server user_name
 char mqtt_pass[] = "password";    //Mqtt Server password
