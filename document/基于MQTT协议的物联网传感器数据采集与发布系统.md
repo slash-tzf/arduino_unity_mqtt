@@ -180,7 +180,7 @@ MQTT协议采用客户端-服务器模式，其中服务器通常被称为“MQT
 
 进入18083端口即可看到控制台
 
-![image-20250224203740204](D:\Document\PlatformIO\Projects\mqttnet\document\image-20250224203740204.png)
+![image-20250224203740204](https://raw.githubusercontent.com/slash-tzf/image/main/20250224213548630.png)
 
 ## 二、相关传感器介绍
 
@@ -426,7 +426,7 @@ Unity 是一个跨平台的游戏引擎，广泛用于开发 2D 和 3D 游戏、
 
 [Unity Hub](https://unity.com/cn/download) 是使用Unity必须安装的软件，这个软件可以帮助我们管理Unity软件的版本和Unity项目。 进入下载页面。点击“下载”即可完成对unity hub的下载。
 
-![image-20250224200907382](D:\Document\PlatformIO\Projects\mqttnet\document\image-20250224200907382.png)
+![image-20250224200907382](https://raw.githubusercontent.com/slash-tzf/image/main/20250224213548631.png)
 
 在完成下载Unity Hub后，注册相关账号后请下载[Unity 2020.3.30f1](https://unity.cn/release-notes/full/2020/2020.3.30f1)版本。
 
