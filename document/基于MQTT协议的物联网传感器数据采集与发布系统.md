@@ -1,4 +1,4 @@
-# 基于MQTT协议的物联网传感器数据采集与发布系统
+# 基于VR和MQTT协议的物联网传感器数据可视化系统
 
 
 
@@ -450,9 +450,50 @@ Unity 是一个跨平台的游戏引擎，广泛用于开发 2D 和 3D 游戏、
 
 该部分代码主要由mqtt_manager.cs文件实现。
 
+
+
+#### 4.2.1 
+
+由于unity并没有自带MQTT相关模块因此，在使用MQTT前需要在 Unity 中安装NuGet 包，可以通过以下几种方法进行，下面是具体的步骤：
+
+#### 方法一：使用 NuGet For Unity 插件
+
+1. **下载 NuGet For Unity 插件**：
+   - 前往 GitHub 下载 NuGet For Unity 插件：[NuGet For Unity GitHub](https://github.com/GlitchEnzo/NuGetForUnity)
+   
+2. **导入插件**：
+   - 将下载的插件文件夹导入到 Unity 项目中。可以通过 Unity 编辑器的 `Assets` -> `Import Package` -> `Custom Package` 来导入 `.unitypackage` 文件。
+   
+3. **安装 NuGet 包**：
+   - 导入插件后，在 Unity 编辑器的菜单栏中会新增一个 `NuGet` 菜单。
+   - 选择 `NuGet` -> `Manage NuGet Packages`，打开 NuGet 管理界面。
+   - 在搜索框中输入你想安装的包，点击 `Install` 按钮来安装 NuGet 包。
+
+#### 方法二：手动安装 NuGet 包
+
+1. **下载 NuGet 包文件 (.nupkg)**：
+   - 你可以从 NuGet 官方网站或其他 NuGet 源下载所需的包文件。
+   
+2. **解压和添加到 Unity 项目**：
+   - 将下载的 `.nupkg` 文件解压，得到其中的 DLL 文件。
+   - 将这些 DLL 文件直接放到 Unity 项目的 `Assets/Plugins` 文件夹下。
+
+3. **配置并使用包**：
+   - 在 Unity 项目中，你可以直接引用这些 DLL 文件来使用相关的 NuGet 包功能。
+
+在安装完NuGet后，在unity工具栏中会出现Nuget选项
+
+![image-20250227211643407](C:\Users\Tong ZhiFeng\AppData\Roaming\Typora\typora-user-images\image-20250227211643407.png)
+
+
+
+在打开商店后搜索MQTTnet，下载相关模块代码就可以在unity中使用mqtt进行开发
+
+![image-20250227211813657](C:\Users\Tong ZhiFeng\AppData\Roaming\Typora\typora-user-images\image-20250227211813657.png)
+
 这段代码主要实现了一个基于 MQTT 协议的 Unity 脚本，它从 MQTT 代理接收消息，并根据接收到的 JSON 数据在 Unity 场景中生成一个动态的“数据球”和相应的标签。代码中使用了 TextMeshPro 用于显示标签，XR Interaction Toolkit 用于处理与数据球的交互。接下来，我们将分块详细解释代码的功能和实现。
 
-#### 4.2.1. 引用的命名空间
+#### 4.2.2. 引用的命名空间
 
 ```csharp
 using System;
@@ -477,7 +518,7 @@ using TMPro; // 添加 TextMeshPro 命名空间
 - `UnityEngine.XR.Interaction.Toolkit`：Unity 的 XR (扩展现实) 工具包，用于实现交互功能。
 - `TMPro`：TextMeshPro 用于显示文本标签。
 
-#### 4.2.2. `mqtt_manager` 类定义
+#### 4.2.3. `mqtt_manager` 类定义
 
 ```csharp
 public class mqtt_manager : MonoBehaviour
@@ -510,7 +551,7 @@ public class mqtt_manager : MonoBehaviour
 - `textMeshProPrefab`：TextMeshPro 文本预制件，用于显示消息。
 - `dataPoint` 和 `dataPointHandler`：用来管理和操作数据球和标签的对象。
 
-#### 4.2.3. `Start` 方法
+#### 4.2.4. `Start` 方法
 
 ```csharp
 async void Start()
@@ -578,7 +619,7 @@ async void Start()
   - 断开连接时输出警告信息。
   - 接收到消息时，将其解码并放入 `messageQueue`。
 
-#### 4.2.4. `Update` 方法
+#### 4.2.5. `Update` 方法
 
 ```csharp
 void Update()
@@ -596,7 +637,7 @@ void Update()
 - `Update` 是 Unity 的生命周期方法之一，帧频执行。
 - 它从 `messageQueue` 中取出所有待处理的 MQTT 消息，并调用 `HandleReceivedJsonOnMainThread` 方法处理每一条消息。
 
-#### 4.2.5. `HandleReceivedJsonOnMainThread` 方法
+#### 4.2.6. `HandleReceivedJsonOnMainThread` 方法
 
 ```csharp
 void HandleReceivedJsonOnMainThread(string jsonString)
@@ -647,7 +688,7 @@ void HandleReceivedJsonOnMainThread(string jsonString)
 - 获取 `msg` 和 `value` 字段的信息，并根据这些数据生成或更新数据展示对象（数据球和标签）。
 - 如果 `position` 字段存在，则使用该位置；如果不存在，则使用计算出来的默认位置。
 
-#### 4.2.6. `GetDefaultTerrainPosition` 方法
+#### 4.2.7. `GetDefaultTerrainPosition` 方法
 
 ```csharp
 Vector3 GetDefaultTerrainPosition()
@@ -667,7 +708,7 @@ Vector3 GetDefaultTerrainPosition()
 
 - 计算地形上默认的位置：从地形的坐标位置中获取基础坐标，并通过 `SampleHeight` 获取 Y 轴的高度，最终返回一个新的 `Vector3` 作为默认位置。
 
-#### 4.2.7. `CreateDataPoint` 方法
+#### 4.2.8. `CreateDataPoint` 方法
 
 ```csharp
 void CreateDataPoint(Vector3 position, string msg, float value)
@@ -700,7 +741,7 @@ void CreateDataPoint(Vector3 position, string msg, float value)
 - 添加一个 `DataPointHandler` 组件，用于处理显示控制逻辑，包括初始化文本标签。
 - 添加 `XRSimpleInteractable` 组件，支持 XR 交互（如悬停和点击）。
 
-#### 4.2.8. `UpdateDataPoint` 方法
+#### 4.2.9. `UpdateDataPoint` 方法
 
 ```csharp
 void UpdateDataPoint(string msg, float value)
@@ -735,4 +776,33 @@ async void OnApplicationQuit()
 
 ### 4.3场景创建
 
-该部分比较简单，若没有相关基础请参考[【Unity教程】零基础带你从小白到超神](https://www.bilibili.com/video/BV1gQ4y1e7SS),场景比较简单，素材已经在工程内。
+该部分比较简单，若没有相关基础请参考[【Unity教程】零基础带你从小白到超神](https://www.bilibili.com/video/BV1gQ4y1e7SS),整体场景比较简单，素材已经在工程内。
+
+#### 4.3.1 天空盒
+
+场景天空盒可以在windows->Rendering->Lighting->Environment->Skybox Material下更换
+
+![image-20250227210733320](C:\Users\Tong ZhiFeng\AppData\Roaming\Typora\typora-user-images\image-20250227210733320.png)
+
+
+
+#### 4.3.2 字符
+由于Unity自带的默认字符编码中并不存在" ℃ " 符号，所以在Assets文件夹下加入一个免费的支持几乎所有字符的文字包NotoSansSC-Regular SDF。将它做成Text Mesh pro后即可在unity中使用。
+
+
+
+### 4.4项目运行
+
+在连接上VR眼镜后点击运行游戏，即可在VR眼镜中看到场景，VR左摇杆负责前进后退，右摇杆负责旋转视角，同时也可以通过头部转动来旋转视角。
+
+
+
+在控制台中可以看到连接到MQTT服务器
+![image-20250227213050534](C:\Users\Tong ZhiFeng\AppData\Roaming\Typora\typora-user-images\image-20250227213050534.png)
+
+如果物联网开发板在线将会看到如下图所示的绿色小球，用射线瞄准小球按下扳机键就可以显示有物联网设备发送过来的传感器数据。
+
+![image-20250227213007896](C:\Users\Tong ZhiFeng\AppData\Roaming\Typora\typora-user-images\image-20250227213007896.png)
+
+切换月球后需要同时替换天空场景方法如4.3.1可以看到如下场景
+![image-20250227213414998](C:\Users\Tong ZhiFeng\AppData\Roaming\Typora\typora-user-images\image-20250227213414998.png)
