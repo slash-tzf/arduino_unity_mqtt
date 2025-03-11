@@ -2,7 +2,13 @@
 
 
 
-随着物联网（IoT）技术的迅猛发展，智能设备之间的互联互通已成为现代技术应用的一个重要方向。在物联网系统中，传感器起着至关重要的作用，能够实时收集环境数据，提供智能决策的基础。本报告基于一段Arduino代码，结合MQTT协议和多个传感器的应用，分析其原理和实现方式。报告将详细介绍MQTT协议的工作原理，涉及的传感器类型及其应用，代码的详细分析，以及如何实现物联网设备的数据采集和远程发布。
+随着物联网（IoT）技术的迅猛发展，智能设备之间的互联互通已成为现代技术应用的一个重要方向。在物联网系统中，传感器起着至关重要的作用，能够实时收集环境数据，提供智能决策的基础。本报告基于一段Arduino代码，结合MQTT协议和多个传感器的应用，分析其原理和实现方式。详细介绍MQTT协议的工作原理，涉及的传感器类型及其应用，代码的详细分析，以及如何实现物联网设备的数据采集和远程发布，最后显示在VR上。
+
+
+
+## 整体结构
+
+![图片1](https://raw.githubusercontent.com/slash-tzf/image/main/20250311144942180.png)
 
 ## 一、MQTT协议原理
 
@@ -483,13 +489,13 @@ Unity 是一个跨平台的游戏引擎，广泛用于开发 2D 和 3D 游戏、
 
 在安装完NuGet后，在unity工具栏中会出现Nuget选项
 
-![image-20250227211643407](C:\Users\Tong ZhiFeng\AppData\Roaming\Typora\typora-user-images\image-20250227211643407.png)
+![image-20250227211643407](https://raw.githubusercontent.com/slash-tzf/image/main/20250227213545547.png)
 
 
 
 在打开商店后搜索MQTTnet，下载相关模块代码就可以在unity中使用mqtt进行开发
 
-![image-20250227211813657](C:\Users\Tong ZhiFeng\AppData\Roaming\Typora\typora-user-images\image-20250227211813657.png)
+![image-20250227211813657](https://raw.githubusercontent.com/slash-tzf/image/main/20250227213545549.png)
 
 这段代码主要实现了一个基于 MQTT 协议的 Unity 脚本，它从 MQTT 代理接收消息，并根据接收到的 JSON 数据在 Unity 场景中生成一个动态的“数据球”和相应的标签。代码中使用了 TextMeshPro 用于显示标签，XR Interaction Toolkit 用于处理与数据球的交互。接下来，我们将分块详细解释代码的功能和实现。
 
@@ -782,7 +788,7 @@ async void OnApplicationQuit()
 
 场景天空盒可以在windows->Rendering->Lighting->Environment->Skybox Material下更换
 
-![image-20250227210733320](C:\Users\Tong ZhiFeng\AppData\Roaming\Typora\typora-user-images\image-20250227210733320.png)
+![image-20250227210733320](https://raw.githubusercontent.com/slash-tzf/image/main/20250227213545550.png)
 
 
 
@@ -798,11 +804,11 @@ async void OnApplicationQuit()
 
 
 在控制台中可以看到连接到MQTT服务器
-![image-20250227213050534](C:\Users\Tong ZhiFeng\AppData\Roaming\Typora\typora-user-images\image-20250227213050534.png)
+![image-20250227213050534](https://raw.githubusercontent.com/slash-tzf/image/main/20250227213545551.png)
 
 如果物联网开发板在线将会看到如下图所示的绿色小球，用射线瞄准小球按下扳机键就可以显示有物联网设备发送过来的传感器数据。
 
-![image-20250227213007896](C:\Users\Tong ZhiFeng\AppData\Roaming\Typora\typora-user-images\image-20250227213007896.png)
+![image-20250227213007896](https://raw.githubusercontent.com/slash-tzf/image/main/20250227213545552.png)
 
 切换月球后需要同时替换天空场景方法如4.3.1可以看到如下场景
-![image-20250227213414998](C:\Users\Tong ZhiFeng\AppData\Roaming\Typora\typora-user-images\image-20250227213414998.png)
+![image-20250227213414998](https://raw.githubusercontent.com/slash-tzf/image/main/20250227213545553.png)
